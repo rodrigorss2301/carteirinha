@@ -16,5 +16,5 @@ export class RegisterUserDto {
 
   @IsString()
   @IsNotEmpty()
-  role?: 'admin' | 'paciente';
+  role?: 'admin' | 'paciente' | 'subscriber' | 'affiliate';
 }
