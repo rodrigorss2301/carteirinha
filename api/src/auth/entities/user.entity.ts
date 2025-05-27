@@ -16,10 +16,10 @@ export class User {
 
   @Column({
     type: 'enum',
-    enum: ['admin', 'paciente'],
+    enum: ['admin', 'paciente', 'subscriber', 'affiliate'],
     default: 'paciente'
   })
-  role: 'admin' | 'paciente';
+  role: 'admin' | 'paciente' | 'subscriber' | 'affiliate';
 
   @Column({ nullable: true })
   patientId?: string;

@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { PatientsModule } from './patients/patients.module';
 import { HealthCardsModule } from './health-cards/health-cards.module';
 import { AuthModule } from './auth/auth.module';
+import { PaymentsModule } from './payments/payments.module';
+import { AdminModule } from './admin/admin.module'; // Import AdminModule
 import databaseConfig from './config/database.config';
 
 @Module({
@@ -31,6 +33,8 @@ import databaseConfig from './config/database.config';
     PatientsModule,
     HealthCardsModule,
     AuthModule,
+    PaymentsModule,
+    AdminModule, // Add AdminModule here
   ],
   controllers: [AppController],
   providers: [AppService],

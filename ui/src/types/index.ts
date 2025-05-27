@@ -28,7 +28,7 @@ export interface User {
   id: string;
   username: string;
   name: string;
-  role: 'admin' | 'paciente';
+  role: 'admin' | 'paciente' | 'subscriber' | 'affiliate';
   patientId?: string; // ID do paciente associado, se for um usuário paciente
 }
 
@@ -36,4 +36,19 @@ export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+}
+
+export enum PaymentStatus {
+  PENDING = 'pending',
+  COMPLETED = 'completed',
+  FAILED = 'failed',
+}
+
+export interface Payment {
+  id: string;
+  userId: string;
+  amount: number;
+  status: PaymentStatus;
+  createdAt: Date;
+  updatedAt: Date;
 }
