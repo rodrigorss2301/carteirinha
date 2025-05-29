@@ -9,6 +9,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from 'src/users/entities/user.entity';
 import { SharedModule } from 'src/shared/shared.module';
+import { RoleGuard } from './guards/role.guard';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { SharedModule } from 'src/shared/shared.module';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, LocalStrategy],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy, LocalStrategy, RoleGuard],
+  exports: [AuthService, RoleGuard],
 })
 export class AuthModule {}

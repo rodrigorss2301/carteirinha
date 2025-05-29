@@ -4,13 +4,13 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { ContractType } from '../types/contract.type';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 
-@Entity()
+@Entity('patients')
 export class Patient {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -24,22 +24,26 @@ export class Patient {
   @Column({ unique: true, nullable: false })
   cpf: string;
 
-  @Column({ nullable: false })
+  @Column({ type: 'date', nullable: false })
   birthDate: Date;
 
-  @Column({ unique: true, nullable: false })
+  @Column({ nullable: false })
   medicalRecordNumber: string;
 
   @Column({ nullable: true })
   medicalRecordNumberHolder?: string;
 
-  @Column({ nullable: false })
+  @Column({ type: 'date', nullable: false })
   contractStartDate: Date;
 
-  @Column({ nullable: false })
+  @Column({ type: 'date', nullable: false })
   contractExpirationDate: Date;
 
-  @Column({ nullable: false })
+  @Column({
+    type: 'enum',
+    enum: ContractType,
+    nullable: false,
+  })
   contractType: ContractType;
 
   @CreateDateColumn()
@@ -48,6 +52,10 @@ export class Patient {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => User, (user) => user.patient)
+  @OneToOne(() => User, (user) => user.patient, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
   user: User;
 }

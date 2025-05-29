@@ -1,48 +1,57 @@
+// /home/arthur-ss/repos/carteirinha/api/src/patients/dto/create-patient.dto.ts
 import {
-  IsString,
+  IsDateString,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
-  IsDateString,
-  IsNumberString,
-  IsEnum,
+  IsString,
 } from 'class-validator';
-import { ContractType } from '../types/contract.type';
 import { IsCpf } from 'src/shared/helpers/cpf.helper';
+import { ContractType } from '../types/contract.type';
+import { PatientUserDto } from './patient-user.dto';
+import { Type } from 'class-transformer';
 
 export class CreatePatientDto {
-  @IsString()
+  // Patient fields
   @IsNotEmpty()
+  @IsString()
   firstName: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   surName: string;
 
-  @IsCpf()
   @IsNotEmpty()
+  @IsString()
+  @IsCpf() // Custom decorator to validate CPF format
   cpf: string;
 
-  @IsDateString()
   @IsNotEmpty()
+  @IsDateString()
   birthDate: Date;
 
-  @IsNumberString()
   @IsNotEmpty()
+  @IsString()
   medicalRecordNumber: string;
 
-  @IsNumberString()
   @IsOptional()
+  @IsString()
   medicalRecordNumberHolder?: string;
 
-  @IsDateString()
   @IsNotEmpty()
+  @IsDateString()
   contractStartDate: Date;
 
-  @IsDateString()
   @IsNotEmpty()
+  @IsDateString()
   contractExpirationDate: Date;
 
-  @IsEnum(ContractType)
   @IsNotEmpty()
+  @IsEnum(ContractType) // Assuming ContractType is an enum
   contractType: ContractType;
+
+  // User fields nested as an object
+  @IsNotEmpty()
+  @Type(() => PatientUserDto)
+  user: PatientUserDto;
 }

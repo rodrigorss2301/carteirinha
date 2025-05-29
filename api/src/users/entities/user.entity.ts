@@ -27,7 +27,12 @@ export class User {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ nullable: false, default: Role.PATIENT })
+  @Column({
+    type: 'enum',
+    enum: Role,
+    nullable: false,
+    default: Role.PATIENT,
+  })
   @IsEnum(Role)
   role: Role;
 
@@ -37,7 +42,9 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Patient, { nullable: true })
-  @JoinColumn()
-  patient?: Patient | null;
+  @OneToOne(() => Patient, (patient) => patient.user, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  patient?: Patient;
 }
