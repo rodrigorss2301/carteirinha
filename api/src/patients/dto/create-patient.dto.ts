@@ -1,40 +1,48 @@
 import {
   IsString,
   IsNotEmpty,
-  IsEmail,
   IsOptional,
   IsDateString,
+  IsNumberString,
+  IsEnum,
 } from 'class-validator';
+import { ContractType } from '../types/contract.type';
+import { IsCpf } from 'src/shared/helpers/cpf.helper';
 
 export class CreatePatientDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  firstName: string;
 
   @IsString()
+  @IsNotEmpty()
+  surName: string;
+
+  @IsCpf()
   @IsNotEmpty()
   cpf: string;
 
   @IsDateString()
+  @IsNotEmpty()
   birthDate: Date;
 
-  @IsString()
+  @IsNumberString()
   @IsNotEmpty()
-  mothersName: string;
+  medicalRecordNumber: string;
 
-  @IsString()
+  @IsNumberString()
   @IsOptional()
-  fathersName?: string;
+  medicalRecordNumberHolder?: string;
 
-  @IsString()
+  @IsDateString()
   @IsNotEmpty()
-  address: string;
+  contractStartDate: Date;
 
-  @IsString()
+  @IsDateString()
   @IsNotEmpty()
-  phoneNumber: string;
+  contractExpirationDate: Date;
 
-  @IsEmail()
-  @IsOptional()
-  email?: string;
+  @IsEnum(ContractType)
+  @IsNotEmpty()
+  contractType: ContractType;
 }

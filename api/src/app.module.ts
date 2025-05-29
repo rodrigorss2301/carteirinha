@@ -4,8 +4,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PatientsModule } from './patients/patients.module';
-import { HealthCardsModule } from './health-cards/health-cards.module';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { SharedModule } from './shared/shared.module';
 import databaseConfig from './config/database.config';
 
 @Module({
@@ -29,8 +30,9 @@ import databaseConfig from './config/database.config';
       inject: [ConfigService],
     }),
     PatientsModule,
-    HealthCardsModule,
     AuthModule,
+    UsersModule,
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

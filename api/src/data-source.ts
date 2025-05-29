@@ -1,6 +1,5 @@
 import { DataSource } from 'typeorm';
 import { Patient } from './patients/entities/patient.entity';
-import { HealthCard } from './health-cards/entities/health-card.entity';
 
 const AppDataSource = new DataSource({
   type: 'postgres',
@@ -9,9 +8,9 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || 'postgres',
   database: process.env.DB_NAME || 'policardmed',
-  entities: [Patient, HealthCard],
+  entities: [Patient],
   migrations: ['src/migrations/*.ts'],
-  synchronize: true
+  synchronize: true,
 });
 
 export default AppDataSource;

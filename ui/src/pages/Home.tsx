@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Button from "../components/ui/Button";
 import { Heart, Shield, Users, CreditCard, Check } from "lucide-react";
-import { Card } from "../components/ui/Card";
 
 interface Patient {
   id: string;

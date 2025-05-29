@@ -1,5 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { HealthCard } from '../../health-cards/entities/health-card.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
+import { ContractType } from '../types/contract.type';
+import { User } from 'src/users/entities/user.entity';
 
 @Entity()
 export class Patient {
@@ -7,35 +16,38 @@ export class Patient {
   id: string;
 
   @Column()
-  name: string;
+  firstName: string;
 
-  @Column({ unique: true })
+  @Column()
+  surName: string;
+
+  @Column({ unique: true, nullable: false })
   cpf: string;
 
-  @Column()
+  @Column({ nullable: false })
   birthDate: Date;
 
-  @Column()
-  mothersName: string;
+  @Column({ unique: true, nullable: false })
+  medicalRecordNumber: string;
 
   @Column({ nullable: true })
-  fathersName: string;
+  medicalRecordNumberHolder?: string;
 
-  @Column()
-  address: string;
+  @Column({ nullable: false })
+  contractStartDate: Date;
 
-  @Column()
-  phoneNumber: string;
+  @Column({ nullable: false })
+  contractExpirationDate: Date;
 
-  @Column({ nullable: true })
-  email: string;
-
-  @OneToMany(() => HealthCard, healthCard => healthCard.patient)
-  healthCards: HealthCard[];
+  @Column({ nullable: false })
+  contractType: ContractType;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(() => User, (user) => user.patient)
+  user: User;
 }
